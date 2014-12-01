@@ -1,0 +1,26 @@
+/* Parallax mandatory styles */
+.bg-parallax {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 0; }
+
+.bg-parallax-parent {
+  position: relative; }
+
+.bg-parallax-parent > *:not(.bg-parallax) {
+  position: relative;
+  z-index: 1; }
+
+.bg-parallax-parent.broke-out {
+  overflow: visible; }
+
+@media (max-width: 980px) {
+  /* Disable parallax for mobile devices */
+  .bg-parallax[data-mobile-enabled=""] {
+    background-position: 50% 50% !important; } }
+.bg-parallax-parent iframe {
+  max-width: none; }

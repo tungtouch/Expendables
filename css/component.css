@@ -1,0 +1,353 @@
+.noscroll {
+	overflow: hidden;
+}
+
+.hgr-grid-wrap {
+	margin: 10px auto 0;
+	max-width: 1090px;
+	width: 100%;
+	padding: 0;
+	-webkit-perspective: 1500px;
+	perspective: 1500px;
+}
+
+.hgr-folio-grid {
+	position: relative;
+	-webkit-transition: all 0.5s cubic-bezier(0,0,0.25,1);
+	transition: all 0.5s cubic-bezier(0,0,0.25,1);
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.view-full .hgr-folio-grid {
+	-webkit-transform: translateZ(-1500px);
+	transform: translateZ(-1500px);
+}
+
+.hgr-folio-grid figure,
+.hgr-folio-grid .placeholder {
+	width: 340px;
+	height: auto;
+}
+
+.hgr-folio-grid figure {
+	margin-top: 10px;
+	margin-left:15px;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.hgr-folio-grid figure.active {
+	opacity: 0;
+}
+
+.hgr-folio-grid .placeholder {
+	pointer-events: none;
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+.placeholder > div {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.placeholder .front img {
+	width: 100%;
+	height: 100%;
+}
+
+.placeholder .back {
+	background: white;
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+.view-full .placeholder {
+	-webkit-transition: all 0.5s 0.1s cubic-bezier(0,0,0.25,1);
+	transition: all 0.5s 0.1s cubic-bezier(0,0,0.25,1);
+}
+
+.vertical .view-full .placeholder {
+	-webkit-transform: translateZ(1500px) rotateX(-179.9deg);
+	transform: translateZ(1500px) rotateX(-179.9deg); /* FF, Chrome, can we agree on one direction, pleeease? */
+}
+
+.horizontal .view-full .placeholder {
+	-webkit-transform: translateZ(1500px) rotateY(-179.9deg);
+	transform: translateZ(1500px) rotateY(-179.9deg);
+}
+
+.hgr-folio-grid figure img {
+	/*display: block;*/
+	width: 100%;
+}
+
+.hgr-folio-content,
+.hgr-folio-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	pointer-events: none; /* Careful, does not work in IE < 11 http://caniuse.com/#search=pointer-events */
+}
+
+.hgr-folio-content {
+	overflow-y: scroll;
+	height: 0; /* What seems to be the problem, officer? Well, we have a second scroll bar in Chrome! */
+	background: #fff;
+	visibility: hidden;
+	z-index: 400;
+	-webkit-overflow-scrolling: touch;
+}
+
+.hgr-folio-loading {
+	opacity: 0;
+	z-index: 1;
+	background: transparent url(../images/preloader.gif) no-repeat center center;
+	-webkit-transform: scale(0.5);
+	transform: scale(0.5);
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+
+.hgr-folio-loading.show {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.hgr-folio-content.show {
+	height: auto;
+	pointer-events: auto;
+	visibility: visible;
+	z-index:100000;
+}
+
+.hgr-folio-content > div {
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	overflow: hidden;
+	height: 0;
+	opacity: 0;
+	background: #fff;
+}
+
+.hgr-folio-content > div.show {
+	height: auto;
+	opacity: 1;	
+	-webkit-transition: opacity 0.6s;
+	transition: opacity 0.6s;
+}
+
+.hgr-folio-close-content:before {
+	font-family: 'FontAwesome';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.hgr-folio-close-content {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	right: 10px;
+	font-size: 1.6em;
+	color: #aaa;
+	cursor: pointer;
+	pointer-events: none;
+	padding: 1em;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.hgr-folio-close-content:hover {
+	color: #999;
+}
+
+.hgr-folio-content > div.show ~ .hgr-folio-close-content {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.hgr-folio-close-content:before {
+	content: "\f00d";
+}
+
+/* Dummy content */
+
+.dummy-img,
+.dummy-text,
+.folio_title {
+	max-width: 600px;
+	width: 90%;
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+	transition: opacity 0.5s, transform 0.5s;
+}
+
+.vertical .dummy-img,
+.vertical .dummy-text {
+	-webkit-transform: translateY(100px);
+	transform: translateY(100px);
+}
+
+.horizontal .dummy-img,
+.horizontal .dummy-text {
+	-webkit-transform: translateX(-100px);
+	transform: translateX(-100px);
+}
+
+.hgr-folio-content > div.show .dummy-img,
+.hgr-folio-content > div.show .dummy-text,
+.hgr-folio-content > div.show .folio_title  {
+	opacity: 1;
+}
+
+.vertical .hgr-folio-content > div.show .dummy-img,
+.vertical .hgr-folio-content > div.show .dummy-text {
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
+.horizontal .hgr-folio-content > div.show .dummy-img,
+.horizontal .hgr-folio-content > div.show .dummy-text,
+.horizontal .hgr-folio-content > div.show .folio_title {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+
+p.dummy-text:nth-child(2) {
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+}
+
+p.dummy-text:nth-child(3) {
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+}
+
+.dummy-img {
+	height: 400px;
+	background-color: #ddd;
+	margin: 30px auto;
+}
+
+.folio_title {
+	text-align: left;
+	margin: 0 auto;
+	padding: 10px 0;
+	color: #ddd;
+	font-size: 2em;
+	font-family: Arial, serif;
+	display:block;
+}
+.dummy-text {
+	text-align: left;
+	margin: 0 auto;
+	padding: 10px 0;
+	color: #ddd;
+	font-size: 1em;
+	font-family: Arial, serif;
+}
+
+.dummy-text:last-child {
+	padding-bottom: 100px;
+}
+
+/* Simple fallback */
+/* if any of these are not supported, a simple fallback will be shown */
+.no-pointerevents .hgr-folio-content,
+.no-csstransforms3d .hgr-folio-content,
+.no-csstransitions .hgr-folio-content,
+.no-pointerevents .hgr-folio-content > div,
+.no-csstransforms3d .hgr-folio-content > div,
+.no-csstransitions .hgr-folio-content > div,
+.no-pointerevents .hgr-folio-close-content,
+.no-csstransforms3d .hgr-folio-close-content,
+.no-csstransitions .hgr-folio-close-content {
+	opacity: 1;
+	visibility: visible;
+	display: none;
+	height: auto;
+}
+
+.no-pointerevents .show .hgr-folio-close-content,
+.no-csstransforms3d .show .hgr-folio-close-content,
+.no-csstransition .show .hgr-folio-close-content,
+.no-pointerevents div.show,
+.no-csstransforms3d div.show,
+.no-csstransitions div.show,
+.no-csstransitions .dummy-img,
+.no-csstransitions .dummy-text,
+.no-csstransforms3d .dummy-img,
+.no-csstransforms3d .dummy-text, 
+.no-pointerevents .dummy-img,
+.no-pointerevents .dummy-text {
+	display: block !important;
+	opacity: 1;
+}
+
+
+
+.folio-img {
+	margin-top:35px;
+}
+.folio-img, .folio-text {
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:30px;
+}
+.folio-text h1 {
+	margin-bottom:0.5em;
+}
+.folio-text h1:after {
+	display: none;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+	.hgr-folio-grid figure,
+	.hgr-folio-grid .placeholder {
+		width: 240px;
+		height: 212px;
+	}
+}
+@media screen and (max-width: 480px) {
+	.hgr-folio-grid figure,
+	.hgr-folio-grid .placeholder {
+		width: 100%;
+		height: auto;
+	}
+	.hgr-grid-wrap{
+		width:100%;
+	}
+	.hgr-folio-grid {
+		overflow: hidden;
+		padding-right: 30px;
+	}
+}

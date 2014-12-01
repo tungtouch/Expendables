@@ -44,8 +44,8 @@ jQuery(document).ready(function($) {
 	// Onepage navigation, front page or blog section
 	if(is_front_page==='true') {
 		//console.log('is_front_page');
-		jQuery('ul.nav a[href*=#]').click(function() {
-			//console.log('clicked one');
+		jQuery('ul.nav a[href*=#], .moveState a[href*=#]').click(function() {
+			console.log('clicked one');
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
 			&& location.hostname == this.hostname) {
 			  var $target = jQuery(this.hash);
